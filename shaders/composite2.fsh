@@ -2,6 +2,7 @@
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
+#include "/include/textures.glsl"
 #include "/include/noise.glsl"
 #include "/include/distort.glsl"
 #include "/include/shadows.glsl"

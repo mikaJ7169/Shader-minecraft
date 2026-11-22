@@ -11,22 +11,6 @@
 #define MAT_SKY 2.0
 #define MAT_CLOUD 3.0
 
-uniform sampler2D gtexture;
-uniform sampler2D lightmap;
-uniform sampler2D noisetex;
-uniform sampler2D depthtex0;
-uniform sampler2D depthtex1;
-uniform sampler2D colortex0;
-uniform sampler2D colortex1;
-uniform sampler2D colortex2;
-uniform sampler2D colortex3;
-uniform sampler2D colortex4;
-uniform sampler2D colortex5;
-uniform sampler2D colortex6;
-uniform sampler2D colortex7;
-uniform sampler2D shadowtex0;
-uniform sampler2D shadowtex1;
-uniform sampler2D shadowcolor0;
 
 uniform mat4 gbufferModelView;
 uniform mat4 gbufferModelViewInverse;
@@ -87,13 +71,9 @@ float decodeMat(float a) { return a * 255.0; }
 float luminance(vec3 c) { return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
 
 float worldDayFactor() {
-    float wt = float(worldTime % 24000);
+    float wt = float(worldTime - 24000 * (worldTime / 24000));
     float day = 1.0 - smoothstep(11500.0, 13000.0, wt);
     float dawn = smoothstep(22800.0, 24000.0, wt);
     return clamp(day + dawn, 0.0, 1.0);
 }
 
-vec4 getNoise2(vec2 coord) {
-    vec2 nc = mod(floor(coord * vec2(viewWidth, viewHeight)), 64.0);
-    return texture2D(noisetex, (nc + 0.5) / 64.0);
-}
