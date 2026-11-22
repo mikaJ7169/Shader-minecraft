@@ -29,7 +29,7 @@ void main() {
     vec2 ruv = clamp(texcoord - off, 0.002, 0.998);
     vec3 refr = texture2D(colortex0, ruv).rgb;
 
-    float foam = smoothstep(0.35, 0.05, diff) * (0.6 + 0.4 * noise2(worldPos.xz * 3.0 + frameTime * 2.0));
+    float foam = smoothstep(0.35, 0.05, diff) * (0.6 + 0.4 * snoise2(worldPos.xz * 3.0 + frameTime * 2.0));
     vec3 waterTint = tex.rgb * glcolor.rgb;
 
     gl_FragData[0] = vec4(refr, 1.0);

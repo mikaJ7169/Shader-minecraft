@@ -21,7 +21,7 @@ vec2 hash22(vec2 p) {
     return fract((p3.xx + p3.yz) * p3.zy);
 }
 
-float noise2(vec2 p) {
+float snoise2(vec2 p) {
     vec2 i = floor(p);
     vec2 f = fract(p);
     f = f * f * (3.0 - 2.0 * f);
@@ -37,7 +37,7 @@ float fbm(vec2 p) {
     float a = 0.5;
     mat2 rot = mat2(0.8, 0.6, -0.6, 0.8);
     for (int i = 0; i < 5; i++) {
-        v += a * noise2(p);
+        v += a * snoise2(p);
         p = rot * p * 2.02 + vec2(3.1, 7.7);
         a *= 0.5;
     }

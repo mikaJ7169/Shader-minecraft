@@ -10,8 +10,8 @@ float waveHeight(vec2 p, float t) {
     h += sin(p.x * 1.5 * d + t * 1.7) * 0.35;
     h += sin(p.y * 2.3 * d - t * 1.3) * 0.25;
     h += sin((p.x + p.y) * 3.1 * d + t * 2.1) * 0.15;
-    h += (noise2(p * 1.2 * d + vec2(t * 0.8, -t * 0.6)) - 0.5) * 0.60;
-    h += (noise2(p * 3.7 * d - vec2(t * 1.1, t * 0.9) + 11.0) - 0.5) * 0.25;
+    h += (snoise2(p * 1.2 * d + vec2(t * 0.8, -t * 0.6)) - 0.5) * 0.60;
+    h += (snoise2(p * 3.7 * d - vec2(t * 1.1, t * 0.9) + 11.0) - 0.5) * 0.25;
     return h;
 }
 
