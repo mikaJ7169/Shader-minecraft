@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -8,17 +8,17 @@
 
 /* RENDERTARGETS: 0,5 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
-    vec3 scene = texture(colortex0, texcoord).rgb;
-    float depth = texture(depthtex0, texcoord).r;
-    float mat = decodeMat(texture(colortex2, texcoord).a);
-    float prevSsao = texture(colortex5, texcoord).r;
+    vec3 scene = texture2D(colortex0, texcoord).rgb;
+    float depth = texture2D(depthtex0, texcoord).r;
+    float mat = decodeMat(texture2D(colortex2, texcoord).a);
+    float prevSsao = texture2D(colortex5, texcoord).r;
     float shadow = 1.0;
     if (depth < 1.0 && abs(mat - MAT_CLOUD) > 0.5) {
         vec3 wp = screenToWorld(texcoord, depth);
-        vec3 n = normalize(decodeNormal(texture(colortex2, texcoord).rgb));
+        vec3 n = normalize(decodeNormal(texture2D(colortex2, texcoord).rgb));
         vec3 sunDirW = normalize(mat3(gbufferModelViewInverse) * normalize(shadowLightPosition));
         float ndl = dot(n, sunDirW);
         float bias = clamp(0.002 * (1.0 - max(ndl, 0.0)), 0.0006, 0.02);

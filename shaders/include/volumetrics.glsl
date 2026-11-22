@@ -25,7 +25,7 @@ void volumetrics(vec2 uv, vec3 worldPos, float dist, out vec3 inscatter, out flo
             clip.xyz = distortShadowClipPos(clip.xyz);
             vec3 ssp = clip.xyz / clip.w * 0.5 + 0.5;
             if (ssp.x >= 0.0 && ssp.x <= 1.0 && ssp.y >= 0.0 && ssp.y <= 1.0 && ssp.z <= 1.0) {
-                light = step(ssp.z - 0.002, texture(shadowtex0, ssp.xy).r);
+                light = step(ssp.z - 0.002, texture2D(shadowtex0, ssp.xy).r);
             }
         }
         sum += (sunCol * light + ambCol) * density * stepSize * trans;

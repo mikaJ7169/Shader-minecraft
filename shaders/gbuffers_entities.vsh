@@ -1,14 +1,14 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
 
-out vec2 texcoord;
-out vec2 lmcoord;
-out vec4 glcolor;
-out vec3 normal;
-out vec3 viewPos;
-out vec3 worldPos;
+varying vec2 texcoord;
+varying vec2 lmcoord;
+varying vec4 glcolor;
+varying vec3 normal;
+varying vec3 viewPos;
+varying vec3 worldPos;
 
 void main() {
     gl_Position = ftransform();

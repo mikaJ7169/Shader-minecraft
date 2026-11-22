@@ -1,10 +1,10 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/distort.glsl"
 
-out vec2 texcoord;
-out vec4 glcolor;
+varying vec2 texcoord;
+varying vec4 glcolor;
 
 void main() {
     texcoord = (gl_TextureMatrix[0] * gl_MultiTexCoord0).xy;

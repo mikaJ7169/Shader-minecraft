@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -9,11 +9,11 @@
 
 /* RENDERTARGETS: 0 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
-    vec3 col = texture(colortex0, texcoord).rgb;
-    float depth = texture(depthtex0, texcoord).r;
+    vec3 col = texture2D(colortex0, texcoord).rgb;
+    float depth = texture2D(depthtex0, texcoord).r;
     if (depth >= 1.0) {
         gl_FragData[0] = vec4(col, 1.0);
         return;

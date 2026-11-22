@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -7,7 +7,7 @@
 
 /* RENDERTARGETS: 0,2,3 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
     vec3 ndc = vec3(texcoord * 2.0 - 1.0, gl_FragCoord.z * 2.0 - 1.0);

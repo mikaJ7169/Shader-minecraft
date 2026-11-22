@@ -94,6 +94,6 @@ float worldDayFactor() {
 }
 
 vec4 getNoise2(vec2 coord) {
-    ivec2 sc = ivec2(coord * vec2(viewWidth, viewHeight));
-    return texelFetch(noisetex, sc % 64, 0);
+    vec2 nc = mod(floor(coord * vec2(viewWidth, viewHeight)), 64.0);
+    return texture2D(noisetex, (nc + 0.5) / 64.0);
 }

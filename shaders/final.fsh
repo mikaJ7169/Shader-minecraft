@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -7,11 +7,11 @@
 
 /* RENDERTARGETS: 0 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
-    vec3 col = texture(colortex0, texcoord).rgb;
-    col += texture(colortex6, texcoord).rgb * BLOOM_STRENGTH;
+    vec3 col = texture2D(colortex0, texcoord).rgb;
+    col += texture2D(colortex6, texcoord).rgb * BLOOM_STRENGTH;
     col *= EXPOSURE;
     col = acesFilmic(col);
     col = pow(max(col, vec3(0.0)), vec3(1.0 / 2.2));

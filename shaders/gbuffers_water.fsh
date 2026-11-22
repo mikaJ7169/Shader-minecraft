@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -7,16 +7,16 @@
 
 /* RENDERTARGETS: 0,1,2,3,4 */
 
-in vec2 texcoord;
-in vec2 lmcoord;
-in vec4 glcolor;
-in vec3 normal;
-in vec3 viewPos;
-in vec3 worldPos;
+varying vec2 texcoord;
+varying vec2 lmcoord;
+varying vec4 glcolor;
+varying vec3 normal;
+varying vec3 viewPos;
+varying vec3 worldPos;
 
 void main() {
-    vec4 tex = texture(gtexture, texcoord);
-    float sceneDepth = linearizeDepth(texture(depthtex0, texcoord).r);
+    vec4 tex = texture2D(gtexture, texcoord);
+    float sceneDepth = linearizeDepth(texture2D(depthtex0, texcoord).r);
     float waterDepth = linearizeDepth(gl_FragCoord.z);
     float diff = max(sceneDepth - waterDepth, 0.0);
 
@@ -26,7 +26,7 @@ void main() {
 
     vec2 off = nView.xy * 0.035 * clamp(diff, 0.0, 3.0);
     vec2 ruv = clamp(texcoord - off, 0.002, 0.998);
-    vec3 refr = texture(colortex0, ruv).rgb;
+    vec3 refr = texture2D(colortex0, ruv).rgb;
 
     float foam = smoothstep(0.35, 0.05, diff) * (0.6 + 0.4 * noise2(worldPos.xz * 3.0 + frameTime * 2.0));
     vec3 waterTint = tex.rgb * glcolor.rgb;

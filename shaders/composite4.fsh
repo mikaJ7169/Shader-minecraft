@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -9,18 +9,18 @@
 
 /* RENDERTARGETS: 0 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
-    vec3 col = texture(colortex0, texcoord).rgb;
-    float depth = texture(depthtex0, texcoord).r;
+    vec3 col = texture2D(colortex0, texcoord).rgb;
+    float depth = texture2D(depthtex0, texcoord).r;
     if (depth >= 1.0) {
         gl_FragData[0] = vec4(col, 1.0);
         return;
     }
-    vec4 gb2 = texture(colortex2, texcoord);
-    vec4 gb3 = texture(colortex3, texcoord);
-    vec3 data5 = texture(colortex5, texcoord).rgb;
+    vec4 gb2 = texture2D(colortex2, texcoord);
+    vec4 gb3 = texture2D(colortex3, texcoord);
+    vec3 data5 = texture2D(colortex5, texcoord).rgb;
     float mat = decodeMat(gb2.a);
     float smooth = gb3.r;
     float metal = gb3.g;
@@ -43,7 +43,7 @@ void main() {
         refl = skyColorAt(rW, normalize(sunPosition), dayF) * (0.35 + 0.65 * dayF);
     }
 
-    vec3 albedo = pow(max(texture(colortex4, texcoord).rgb, vec3(0.0)), vec3(2.2));
+    vec3 albedo = pow(max(texture2D(colortex4, texcoord).rgb, vec3(0.0)), vec3(2.2));
     vec3 f0 = mix(vec3(0.04), albedo, metal);
     float rough = clamp(1.0 - smooth, 0.03, 1.0);
     vec3 sunDirW = normalize(mat3(gbufferModelViewInverse) * normalize(shadowLightPosition));

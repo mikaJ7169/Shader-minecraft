@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -7,19 +7,19 @@
 
 /* RENDERTARGETS: 0 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
-    vec3 col = texture(colortex0, texcoord).rgb;
-    float depth = texture(depthtex0, texcoord).r;
+    vec3 col = texture2D(colortex0, texcoord).rgb;
+    float depth = texture2D(depthtex0, texcoord).r;
     if (depth >= 1.0) {
         gl_FragData[0] = vec4(col, 1.0);
         return;
     }
-    vec4 gb1 = texture(colortex1, texcoord);
-    vec4 gb2 = texture(colortex2, texcoord);
-    vec4 gb3 = texture(colortex3, texcoord);
-    vec3 data5 = texture(colortex5, texcoord).rgb;
+    vec4 gb1 = texture2D(colortex1, texcoord);
+    vec4 gb2 = texture2D(colortex2, texcoord);
+    vec4 gb3 = texture2D(colortex3, texcoord);
+    vec3 data5 = texture2D(colortex5, texcoord).rgb;
     float mat = decodeMat(gb2.a);
     vec3 n = normalize(decodeNormal(gb2.rgb));
     vec2 lm = gb1.rg;

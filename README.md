@@ -1,15 +1,15 @@
 # Mistral Ultra Shaders — pack de shaders Minecraft 1.18.2
 
-Pack de shaders complet (format Iris / OptiFine, GLSL 150) pensé pour le rendu le plus beau possible, sans compromis de performances : ombres douces haute résolution, réflexions screen-space, eau animée avec réfraction et écume, brouillard volumétrique avec rayons de soleil, SSAO, bloom HDR, tonemapping ACES et étalonnage colorimétrique.
+Pack de shaders complet (format Iris / OptiFine, **GLSL 120** — compatible avec les deux) pensé pour le rendu le plus beau possible, sans compromis de performances : ombres douces haute résolution, réflexions screen-space, eau animée avec réfraction et écume, brouillard volumétrique avec rayons de soleil, SSAO, bloom HDR, tonemapping ACES et étalonnage colorimétrique.
 
 ## Installation (Minecraft 1.18.2)
 
-1. Installe **Iris Shaders** pour 1.18.2 (Fabric, avec Sodium) — recommandé — ou OptiFine 1.18.2.
+1. Installe **OptiFine 1.18.2** ou **Iris Shaders** pour 1.18.2 (Fabric, avec Sodium).
 2. Télécharge ce dépôt en ZIP (`Code > Download ZIP`) et place le fichier `.zip` dans `.minecraft/shaderpacks/`.
-3. Lance le jeu : **Options vidéo > Shader Packs** (ou `Shader Packs` dans Iris) > sélectionne le pack.
-4. Ouvre **Shader Pack Settings** pour régler tous les effets (voir ci-dessous).
+3. Lance le jeu : **Options vidéo > Shaders / Shader Packs** > sélectionne le pack.
+4. Ouvre **Shader Pack Settings** (Iris) / **Shaders** (OptiFine) pour régler tous les effets (voir ci-dessous).
 
-> Le pack cible le pipeline Iris/OptiFine en `#version 150`. Sur OptiFine pur, si un shader échoue, réduis d'abord `SHADOW_MAP_RES` à 2048.
+> Le pack est écrit en `#version 120` (GLSL classique : `varying`, `texture2D`, `gl_FragData`), le dialecte supporté à la fois par OptiFine 1.18.2 et Iris. Si un effet ne s'affiche pas sous OptiFine, vérifie d'abord le journal des shaders (`.minecraft/logs/latest.log`, lignes contenant `shader`) et envoie-moi l'erreur.
 
 ## Pipeline de rendu
 

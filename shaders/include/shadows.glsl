@@ -8,15 +8,15 @@ vec3 getShadow(vec3 ssp) {
     if (ssp.x < 0.0 || ssp.x > 1.0 || ssp.y < 0.0 || ssp.y > 1.0 || ssp.z > 1.0) {
         return vec3(1.0);
     }
-    float transparent = step(ssp.z, texture(shadowtex0, ssp.xy).r);
+    float transparent = step(ssp.z, texture2D(shadowtex0, ssp.xy).r);
     if (transparent > 0.5) {
         return vec3(1.0);
     }
-    float opaque = step(ssp.z, texture(shadowtex1, ssp.xy).r);
+    float opaque = step(ssp.z, texture2D(shadowtex1, ssp.xy).r);
     if (opaque < 0.5) {
         return vec3(0.0);
     }
-    vec4 sc = texture(shadowcolor0, ssp.xy);
+    vec4 sc = texture2D(shadowcolor0, ssp.xy);
     return sc.rgb * (1.0 - sc.a);
 }
 

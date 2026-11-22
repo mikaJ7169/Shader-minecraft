@@ -1,4 +1,4 @@
-#version 150
+#version 120
 
 #include "/include/settings.glsl"
 #include "/include/common.glsl"
@@ -6,15 +6,15 @@
 
 /* RENDERTARGETS: 0,5 */
 
-in vec2 texcoord;
+varying vec2 texcoord;
 
 void main() {
-    vec3 scene = texture(colortex0, texcoord).rgb;
-    float depth = texture(depthtex0, texcoord).r;
+    vec3 scene = texture2D(colortex0, texcoord).rgb;
+    float depth = texture2D(depthtex0, texcoord).r;
     float ssao = 1.0;
     if (depth < 1.0) {
         vec3 vp = screenToView(texcoord, depth);
-        vec3 nView = normalize(mat3(gbufferModelView) * decodeNormal(texture(colortex2, texcoord).rgb));
+        vec3 nView = normalize(mat3(gbufferModelView) * decodeNormal(texture2D(colortex2, texcoord).rgb));
         float radius = SSAO_RADIUS * (0.06 + 0.012 * -vp.z);
         float occ = 0.0;
         for (int i = 0; i < SSAO_SAMPLES; i++) {
@@ -30,7 +30,7 @@ void main() {
             if (suv.x < 0.0 || suv.x > 1.0 || suv.y < 0.0 || suv.y > 1.0) {
                 continue;
             }
-            float sceneZ = linearizeDepth(texture(depthtex0, suv).r);
+            float sceneZ = linearizeDepth(texture2D(depthtex0, suv).r);
             occ += clamp((sceneZ + 0.03 + sp.z) / radius, 0.0, 1.0);
         }
         ssao = clamp(1.0 - (occ / float(SSAO_SAMPLES)) * SSAO_STRENGTH, 0.0, 1.0);
